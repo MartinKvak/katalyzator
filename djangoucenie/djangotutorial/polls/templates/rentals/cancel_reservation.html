@@ -1,0 +1,13 @@
+<h1>Zrušiť rezerváciu</h1>
+
+<p>Ste si istí, že chcete zrušiť túto rezerváciu?</p>
+
+<p><strong>Auto:</strong> {{ rental.car.name }}</p>
+<p><strong>Začiatok rezervácie:</strong> {{ rental.start_date }}</p>
+<p><strong>Koniec rezervácie:</strong> {{ rental.end_date }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Áno, zrušiť rezerváciu</button>
+  <a href="{% url 'rentals:user_reservations' %}" class="btn btn-secondary">Späť na moje rezervácie</a>
+</form>

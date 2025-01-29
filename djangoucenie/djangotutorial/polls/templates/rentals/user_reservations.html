@@ -1,0 +1,45 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style_reservation.css' %}?v2"> 
+  
+  <nav class="navbar">
+      <div class="navbar-container">
+          <a href="{% url 'rentals:index' %}" class="navbar-brand">Car Rental</a>
+          <ul class="navbar-links">
+              {% if user.is_authenticated %}
+                  <li class="navbar-links-item">
+                      <a href="{% url 'rentals:user_reservations' %}" class="navbar-links-link">Moje rezervácie</a>
+                  </li>
+                  <li class="navbar-links-item">
+                      <a href="{% url 'rentals:logout' %}" class="navbar-links-link">Odhlásiť sa</a>
+                  </li>
+              {% else %}
+                  <li class="navbar-links-item">
+                      <a href="{% url 'rentals:login' %}" class="navbar-links-link">Prihlásiť sa</a>
+                  </li>
+                  <li class="navbar-links-item">
+                      <a href="{% url 'rentals:register' %}" class="navbar-links-link">Registrovať sa</a>
+                  </li>
+              {% endif %}
+          </ul>
+      </div>
+  </nav>
+  
+  <div class="body-wrapper">
+      <h1 class="header-title">Moje rezervácie</h1>
+  
+      <ul class="reservations-list">
+          {% for rental in user_rentals %}
+              <li class="reservation-item">
+                  <p class="reservation-text">Auto: {{ rental.car.name }}</p>
+                  <p class="reservation-text">Cena za deň: {{ rental.car.price_per_day }}€</p>
+                  <p class="reservation-text">Dátum začiatku: {{ rental.start_date }}</p>
+                  <p class="reservation-text">Dátum konca: {{ rental.end_date }}</p>
+                  <a href="{% url 'rentals:cancel_reservation' rental.id %}" class="cancel-reservation-link">Zrušiť rezerváciu</a>
+              </li>
+          {% empty %}
+              <p class="empty-reservations-message">Nemáte žiadne aktívne rezervácie.</p>
+          {% endfor %}
+      </ul>
+  </div>
+  
