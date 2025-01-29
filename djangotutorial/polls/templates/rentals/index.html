@@ -1,0 +1,53 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style_index.css' %}?v2">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental</title>
+
+</head>
+<body>
+<div class="update">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'rentals:index' %}" class="navbar-brand">Car Rental</a>
+            <ul class="navbar-links">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'rentals:user_reservations' %}">Moje rezervácie</a></li>
+                    <li><a href="{% url 'rentals:logout' %}">Odhlásiť sa</a></li>
+                {% else %}
+                    <li><a href="{% url 'rentals:login' %}">Prihlásiť sa</a></li>
+                    <li><a href="{% url 'rentals:register' %}">Registrovať sa</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <h1>Dostupné autá na prenájom</h1>
+    <div class="cars-list">
+        {% for car in available_cars %}
+            <div class="car-item">
+                <h2 class="car-title">{{ car.name }}</h2>
+                <p class="car-price">Cena za deň: {{ car.price_per_day }}€</p>
+
+                {% if car.image_url %}
+                    <div class="car-image">
+                        <a href="{% url 'rentals:rental_details' car.id %}"><img src="{{ car.image_url }}" alt="{{ car.name }}"></a>
+                    </div>
+                {% else %}
+                    <p class="no-image">Obrázok nie je k dispozícii.</p>
+                {% endif %}
+
+                <a href="{% url 'rentals:car_detail' car.id %}" class="button">Rezervovať auto</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

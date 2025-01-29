@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    position: relative;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0077cc; 
+    box-shadow: 0 0 5px rgba(0, 119, 204, 0.5); 
+    background-color: #fff;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005fa3;
+}
+
+a.back-link {
+    position: absolute;
+    top: 20px;
+    right: 20px; 
+    font-size: 1.1em;
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.back-link:hover {
+    color: #005fa3;
+}
+
+.messages {
+    margin: 20px 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.message {
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.message.success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.back {
+    position: absolute;
+    top: 20px;
+    right: 20px; 
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #0077cc;
+    text-decoration: none;
+}
+
+.back:hover {
+    color: #005fa3;
+}
+
+

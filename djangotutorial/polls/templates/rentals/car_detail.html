@@ -1,0 +1,56 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style_car_detail.css' %}?v2">
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="{% url 'rentals:index' %}" class="navbar-brand">Car Rental</a>
+        <ul class="navbar-links">
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'rentals:user_reservations' %}">Moje rezervácie</a></li>
+                <li><a href="{% url 'rentals:logout' %}">Odhlásiť sa</a></li>
+            {% else %}
+                <li><a href="{% url 'rentals:login' %}">Prihlásiť sa</a></li>
+                <li><a href="{% url 'rentals:register' %}">Registrovať sa</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<h1>{{ car.name }}</h1>
+<p>{% if car.available %}Dostupné{% else %}Nedostupné{% endif %}</p>
+
+<form method="post" onsubmit="return validateDates()">
+    {% csrf_token %}
+    <label for="start_date">Začiatok prenájmu:</label>
+    <input type="date" id="start_date" name="start_date" required>
+
+    <label for="end_date">Koniec prenájmu:</label>
+    <input type="date" id="end_date" name="end_date" required>
+
+    <button type="submit">Rezervovať</button>
+</form>
+
+<script>
+    function validateDates() {
+        const startDate = new Date(document.getElementById('start_date').value);
+        const endDate = new Date(document.getElementById('end_date').value);
+        const today = new Date();
+
+        today.setHours(0, 0, 0, 0);
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(0, 0, 0, 0);
+
+        if (startDate < today) {
+            alert("Začiatok prenájmu nemôže byť v minulosti.");
+            return false;
+        }
+
+        if (endDate <= startDate) {
+            alert("Dátum konca prenájmu musí byť neskôr ako dátum začiatku.");
+            return false;
+        }
+
+        return true; 
+    }
+</script>

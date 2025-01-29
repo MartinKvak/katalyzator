@@ -1,0 +1,65 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'polls/style_rental_details.css'%}?v2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail auta</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'rentals:index' %}" class="navbar-brand">Car Rental</a>
+            <ul class="navbar-links">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'rentals:user_reservations' %}">Moje rezervácie</a></li>
+                    <li><a href="{% url 'rentals:logout' %}">Odhlásiť sa</a></li>
+                {% else %}
+                    <li><a href="{% url 'rentals:login' %}">Prihlásiť sa</a></li>
+                    <li><a href="{% url 'rentals:register' %}">Registrovať sa</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="car-detail">
+            <h1>Detaily auta: {{ car.name }}</h1>
+            {% if car.image_url %}
+                <div class="car-image">
+                    <img src="{{ car.image_url }}" alt="{{ car.name }}">
+                </div>
+            {% else %}
+                <p class="no-image">Obrázok nie je k dispozícii.</p>
+            {% endif %}
+            
+            <div class="car-info">
+                <p><strong>Značka:</strong> {{ car.brand }}</p>
+                <p><strong>Popis:</strong> {{ car.description|default:"Bez popisu" }}</p>
+                <p><strong>Cena za deň:</strong> {{ car.price_per_day }}€</p>
+                <p><strong>Dostupnosť:</strong> {% if car.available %}Áno{% else %}Nie{% endif %}</p>
+            </div>
+
+            {% if last_rental %}
+                <div class="last-rental">
+                    <h2>Posledný prenájom:</h2>
+                    <ul>
+                        <li><strong>Začiatok:</strong> {{ last_rental.start_date }}</li>
+                        <li><strong>Koniec:</strong> {{ last_rental.end_date }}</li>
+                        <li><strong>Používateľ:</strong> {{ last_rental.user.username }}</li>
+                    </ul>
+                </div>
+            {% else %}
+                <p>Pre toto auto zatiaľ neexistujú žiadne rezervácie.</p>
+            {% endif %}
+
+            <a href="{% url 'rentals:index' %}" class="button">Späť na zoznam áut</a>
+        </div>
+    </div>
+</body>
+</html>

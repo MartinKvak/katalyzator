@@ -1,0 +1,28 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style_login.css' %}?v2"> 
+
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="{% url 'rentals:index' %}" class="navbar-brand">Car Rental</a>
+        <ul class="navbar-links">
+            {% if user.is_authenticated %}
+                <li class="navbar-item"><a href="{% url 'rentals:user_reservations' %}" class="navbar-link">Moje rezervácie</a></li>
+                <li class="navbar-item"><a href="{% url 'rentals:logout' %}" class="navbar-link">Odhlásiť sa</a></li>
+            {% else %}
+                <li class="navbar-item"><a href="{% url 'rentals:login' %}" class="navbar-link">Prihlásiť sa</a></li>
+                <li class="navbar-item"><a href="{% url 'rentals:register' %}" class="navbar-link">Registrovať sa</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<h2 class="heading">Prihlásenie</h2>
+
+<form method="POST" class="form-container">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="submit-button">Prihlásiť sa</button>
+    <a href="{% url 'rentals:delete_user' %}" class="remove-account-link">Odstrániť účet?</a>
+</form>

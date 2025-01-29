@@ -1,0 +1,20 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style_delete.css' %}?v2">
+
+<h2>Odstránenie účtu</h2>
+
+{% if message %}
+    <ul class="messages">
+        <li class="message {% if 'úspešne' in message %}success{% else %}error{% endif %}">{{ message }}</li>
+    </ul>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="username">Vaše používateľské meno:</label>
+    <input type="text" id="username" name="username" placeholder="Zadajte svoje používateľské meno" required>
+    <button type="submit" class="btn btn-danger">Odstrániť účet</button>
+</form>
+
+<a href="{% url 'rentals:index' %}" class="back">Späť na prihlásenie?</a>
